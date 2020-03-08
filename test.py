@@ -26,10 +26,12 @@ def readData(fname):
     global books
     #global libraries
 
-    f=open(fname, "r")
-    lines = f.readlines()
-    f.close()
-    
+    # f=open(fname, "r")
+    # lines = f.readlines()
+    with open(fname) as f_in:
+        lines = list(line for line in (l.strip() for l in f_in) if line)
+    f_in.close()
+
     #gets test parameters
     (bks, libs, days) = [int(val) for val in lines[0].split(' ')]
     totaltime += days
@@ -41,6 +43,20 @@ def readData(fname):
         (numBooks, signupTime, shipRate) = [int(val) for val in lines[i].split(' ')]
         bookIds = [int(id) for id in lines[i+1].split(' ')]
         libraries.append(Library(i-2, bookIds, signupTime, shipRate))
+    
+    # #gets test parameters
+    # days = int(lines[0].split(' ')[2])
+    # totaltime += days
+    # for score in lines[1].split(' '):
+    #     books.append(int(score))
+
+    # # gets values for each library and its books
+    # for i in range(2, len(lines), 2):
+    #     # print(i+1, "::", lines[i].split(' '))
+    #     signupTime = int(lines[i].split(' ')[1])
+    #     shipRate = int(lines[i].split(' ')[2])
+    #     booksInLib = [int(id) for id in lines[i+1].split(' ')]
+    #     libraries.append(Library(i-2, booksInLib, signupTime, shipRate))
 
 
 def printResult(fname):
@@ -91,4 +107,11 @@ def bookScanning(fin, fout):
 
     printResult(fout)
 
-bookScanning("b_read_on.txt", "out.txt")
+inFiles = ["a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.txt", "f_libraries_of_the_world.txt", "e_so_many_books.txt"]
+outFiles = ["a_out.txt", "b_out.txt", "c_out.txt", "d_out.txt", "e_out.txt", "f_out.txt"]
+
+def runFiles(*files):
+    for file in files:
+        bookScanning("InData//" + inFiles[file], "OutData//" + outFiles[file])
+
+runFiles()
