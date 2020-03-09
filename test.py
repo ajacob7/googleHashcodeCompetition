@@ -27,8 +27,6 @@ def readData(fname):
     with open(fname) as f_in:
         lines = list(line for line in (l.strip() for l in f_in) if line)
     f_in.close()
-    
-    # print(len(lines))
 
     # gets test parameters
     days = int(lines[0].split(' ')[2])
@@ -38,13 +36,10 @@ def readData(fname):
 
     # gets values for each library and its books
     for i in range(2, len(lines), 2):
-        # print(i+1, "::", lines[i].split(' '))
         signupTime = int(lines[i].split(' ')[1])
         shipRate = int(lines[i].split(' ')[2])
         booksInLib = [int(id) for id in lines[i+1].split(' ')]
         libraries.append(Library(int((i/2)-1), booksInLib, signupTime, shipRate))
-    # print(len(libraries))
-    # print(libraries)
 
 
 def printResult(fname):
@@ -65,7 +60,6 @@ def bookScanning(fin, fout):
 
     shipped = [False]*len(books)
     queue = sorted(libraries, key=operator.attrgetter('time', 'scanRate'), reverse=True)
-    print(len(queue))
     
     currentDay = 0
     setuplib = queue.pop()
@@ -78,7 +72,6 @@ def bookScanning(fin, fout):
             if len(queue) > 0:
                 setuplib = queue.pop()
             
-            
         for library in signedUp:
             sentBooks = 0
             while(sentBooks<library.scanRate and len(library.books)>0):
@@ -87,20 +80,14 @@ def bookScanning(fin, fout):
                     shipped.append(currentBook)
                     library.scanned.append(currentBook)
                     sentBooks += 1
-
-        # print("Total time:: ", totaltime, "Days Left:: ", totaltime - currentDay)
         currentDay += 1 
-        
-
     printResult(fout)
 
 inFiles = ["a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.txt",  "e_so_many_books.txt", "f_libraries_of_the_world.txt"]
 outFiles = ["a_out.txt", "b_out.txt", "c_out.txt", "d_out.txt", "e_out.txt", "f_out.txt"]
 
 #input should be the corresponding indexes of the desired input files
-def runFiles(*files):
-    for file in files:
-        print("Current File:: " + inFiles[file])
-        bookScanning("InData//" + inFiles[file], "OutData//" + outFiles[file])
+def runFile(file):
+    bookScanning("InData//" + inFiles[file], "OutData//" + outFiles[file])
 
-runFiles(0, 1, 2, 3, 4, 5)
+runFile(5)
