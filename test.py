@@ -104,3 +104,5 @@ def runFiles(*files):
         bookScanning("InData//" + inFiles[file], "OutData//" + outFiles[file])
 
 runFiles(0, 1, 2, 3, 4, 5)
+
+#test to see if i can commit 
