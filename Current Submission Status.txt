@@ -1,0 +1,29 @@
+done
+5:52 AM
+A – example
+17 points
+
+done
+5:52 AM
+D – tough choices
+3,229,980 points
+
+error
+5:52 AM
+E – so many books
+Error: The number of libraries exceeds the total number of libraries available.
+
+error
+5:52 AM
+C – incunabula
+Error: The book 0 is not available at library 0.
+
+error
+5:52 AM
+F – libraries of the world
+Error: The number of libraries exceeds the total number of libraries available.
+
+error
+5:52 AM
+B – read on
+Error: The book 0 is not available at library 1.
